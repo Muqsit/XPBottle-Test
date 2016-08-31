@@ -46,3 +46,21 @@ public class Main extends PluginBase implements Listener{
       e.setCancelled(true);
     }
   }
+
+  public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
+    if(!sender instanceof Player) return;
+    switch((cmd.getName().toLowerCase())){
+      case "exp":
+        sender.sendMessage(TextFormat.GREEN + TextFormat.BOLD + "XPBottle " + TextFormat.RESET + TextFormat.GREEN + "You have " + TextFormat.YELLOW + sender.getExperience() + " XP" + TextFormat.GREEN + " with you right now.");
+      break;
+      case "xpbottle":
+        if(!sender.hasPermission("redeem.exp")) return;
+        if(!isset(args[0])) sender.sendMessage(TextFormat.YELLOW + "/xpbottle <amount>\n" + TextFormat.GRAY + "Check your current experience using the command" + TextFormat.YELLOW + "/exp");
+        if(isset(args[0])){
+          if(is_numeric(args[0])) this.redeemExp(sender, args[0]);
+          else sender.sendMessage(TextFormat.RED + TextFormat.BOLD + "XPBottle " + TextFormat.RESET + TextFormat.RED + "You have provided an invalid amount.");
+        }
+      break;
+    }
+  }
+}
